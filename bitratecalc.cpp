@@ -51,9 +51,9 @@ eBitrateCalc::eBitrateCalc(const eServiceReference &ref, int pid, int refreshint
 			{
 				if (!demux->createPESReader(eApp, m_reader))
 				{
-					if (!m_reader->connectRead(sigc::mem_fun(*this, &eBitrateCalc::dataReady), m_pes_connection))
+					if (!m_reader->connectRead(slot(*this, &eBitrateCalc::dataReady), m_pes_connection))
 					{
-						channel->connectStateChange(sigc::mem_fun(*this, &eBitrateCalc::stateChange), m_channel_connection);
+						channel->connectStateChange(slot(*this, &eBitrateCalc::stateChange), m_channel_connection);
 						success = 1;
 					}
 					else
