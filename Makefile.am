@@ -8,7 +8,8 @@ AM_CPPFLAGS = \
 AM_CXXFLAGS = \
 	-Wall \
 	-fno-exceptions \
-	@ENIGMA2_CFLAGS@
+	@ENIGMA2_CFLAGS@ \
+	@PTHREAD_CFLAGS@
 
 lib_LTLIBRARIES = bitratecalc.la
 
