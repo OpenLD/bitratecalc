@@ -92,7 +92,7 @@ void eBitrateCalc::sendDataTimerTimeoutCB()
 	{
 		int bitrate =  int(m_size / delta_ms)*8;
 		sendData(bitrate,1);
-	}		
+	}
 	m_send_data_timer->start(m_refresh_intervall, true);
 }
 
