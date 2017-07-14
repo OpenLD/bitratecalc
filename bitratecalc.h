@@ -34,7 +34,7 @@ private:
 	ePtr<iDVBPESReader> m_reader;
 	ePtr<eConnection> m_pes_connection;
 	ePtr<eConnection> m_channel_connection;
-	void dataReady(const __u8*, int size);
+	void dataReady(const __u8*,  int size);
 	void sendData(int bitrate, int status) {dataSent(bitrate, status);}
 	void stateChange(iDVBChannel *ch);
 	ePtr<eTimer> m_send_data_timer;

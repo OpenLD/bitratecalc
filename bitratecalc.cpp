@@ -20,7 +20,18 @@
 */
 
 #include "bitratecalc.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
+#include <sys/ioctl.h>
+#include <errno.h>
+#include <unistd.h>
+#include <sys/select.h>
+#include <sys/time.h>
+#include <linux/dvb/dmx.h>
+
+#include <iostream>
+#include <vector>
 
 eBitrateCalc::eBitrateCalc(int pid, int dvbnamespace, int tsid, int onid, int refreshintervall, int buffer_size): m_size(0), m_refresh_intervall(refreshintervall)
 {
@@ -88,7 +99,7 @@ eBitrateCalc::eBitrateCalc(int pid, int dvbnamespace, int tsid, int onid, int re
 		sendData(-1,0);
 }
 
-void eBitrateCalc::dataReady(const __u8*, int size)
+void eBitrateCalc::dataReady(const __u8*,  int size)
 {
 	m_size += size;
 }
@@ -103,7 +114,7 @@ void eBitrateCalc::sendDataTimerTimeoutCB()
 	{
 		int bitrate =  int(m_size / delta_ms)*8;
 		sendData(bitrate,1);
-	}		
+	}
 	m_send_data_timer->start(m_refresh_intervall, true);
 }
 
@@ -111,7 +122,7 @@ void eBitrateCalc::stateChange(iDVBChannel *ch)
 {
 	int state;
 	if (ch->getState(state))
-	        return;
+		return;
 	if (state == iDVBChannel::state_release)
 	{
 		m_send_data_timer = NULL;
